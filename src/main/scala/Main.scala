@@ -41,14 +41,14 @@ object Main extends App {
   def runQuery = {
     val insertPeople = Future {
       val query = peopleTable ++= Seq(
-        (50, "Tum", "Blue", 41),
-    (10, "Tem", "Red", 36),
-    (20, "Tim", "Orange", 24),
-        (30, "Tam", "Yellow", 6),
-        (40, "Tam", "Green", 52),
-        (50, "Tum", "Blue", 41),
-          (50, "Tum", "Blue", 41),
-          (50, "Tum", "Blue", 41)
+        (50, "Tum", "Blue", 41, "A Lane"),
+    (10, "Tem", "Red", 36, "B Road"),
+    (20, "Tim", "Orange", 24, "C Lane"),
+        (30, "Tam", "Yellow", 6,"D Lane"),
+        (40, "Tam", "Green", 52, "E Road"),
+        (50, "Tum", "Blue", 41, "F Lane"),
+          (50, "Tum", "Blue", 41, "G Road"),
+          (50, "Tum", "Blue", 41, "s Road")
     )
      //insert into `PEOPLE` (`PER_FNAME`,`PER_LNAME`,`PER_AGE`)  values (?,?,?)
         println(query.statements.head) // would print out the query one line up
@@ -65,7 +65,7 @@ object Main extends App {
     val queryFuture = Future {
        //simple query that selects everything from People and prints them out
           db.run(peopleTable.result).map(_.foreach {
-            case (id, fName, lName, age) => println(s" $id $fName $lName $age")
+            case (id, fName, lName, age, streetName) => println(s" $id $fName $lName $age $streetName")
           })
         }
         Await.result(queryFuture, Duration.Inf).andThen {
@@ -82,6 +82,7 @@ object Main extends App {
 //dropDB
 Misc.commonName
   Misc.commonLastName
+  Misc.neighbour()
   Thread.sleep(10000)
 
 

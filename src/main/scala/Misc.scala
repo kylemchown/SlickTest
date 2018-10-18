@@ -93,4 +93,24 @@ object Misc {
         println("Listing people failed due to: " + error.getMessage)
     }
   }
+
+  def neighbour()={
+    val q = (for {
+      p <- peopleTable
+    } yield (p)).groupBy(_.streetName).map { case(a,b) => a -> b.length}
+
+    val queryFuture = Future {
+      //simple query that selects everything from People and prints them out
+      db.run(q.result).map( {
+        case a  if a.maxBy(a => a._2)._2 > 1 => println("There are neighbours")
+        case _ => println("There are no neighbours in the table")
+      })
+    }
+
+    Await.result(queryFuture, Duration.Inf).andThen {
+      case Success(_) =>  db.close()  //cleanup DB connection
+      case Failure(error) =>
+        println("Listing people failed due to: " + error.getMessage)
+    }
+  }
 }
