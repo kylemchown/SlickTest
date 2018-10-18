@@ -43,12 +43,12 @@ object Main extends App {
       val query = peopleTable ++= Seq(
         (50, "Tum", "Blue", 41, "A Lane"),
     (10, "Tem", "Red", 36, "B Road"),
-    (20, "Tim", "Orange", 24, "C Lane"),
-        (30, "Tam", "Yellow", 6,"D Lane"),
+    (20, "Tim", "Orange", 24, "A Lane"),
+        (30, "Tam", "Yellow", 6,"A Lane"),
         (40, "Tam", "Green", 52, "E Road"),
         (50, "Tum", "Blue", 41, "F Lane"),
-          (50, "Tum", "Blue", 41, "G Road"),
-          (50, "Tum", "Blue", 41, "s Road")
+          (50, "Tum", "Blue", 41, "E Road"),
+          (50, "Tum", "Blue", 41, "B Road")
     )
      //insert into `PEOPLE` (`PER_FNAME`,`PER_LNAME`,`PER_AGE`)  values (?,?,?)
         println(query.statements.head) // would print out the query one line up

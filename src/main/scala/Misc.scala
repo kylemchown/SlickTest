@@ -102,7 +102,9 @@ object Misc {
     val queryFuture = Future {
       //simple query that selects everything from People and prints them out
       db.run(q.result).map( {
-        case a  if a.maxBy(a => a._2)._2 > 1 => println("There are neighbours")
+        case a  if a.maxBy(a => a._2)._2 > 1 =>
+          println("There are neighbours")
+          a.foreach(x => if(x._2 > 1) println(x))
         case _ => println("There are no neighbours in the table")
       })
     }
